@@ -8,6 +8,8 @@ fn main() {
 #[component]
 fn App() -> impl IntoView {
     let (count, set_count) = create_signal(0);
+    let double_count = move || count.get() * 2;
+
 
     view! {
         <button
@@ -27,8 +29,11 @@ fn App() -> impl IntoView {
             max="50"
             // signals are functions, so `value=count` and `value=move || count.get()`
             // are interchangeable.
-            value=move || count.get()
+            value=double_count
         />
+        <p>
+            <strong>"Double count: " {double_count}</strong>
+        </p>
         <p>
             <strong>"Reactive: "</strong>
             // you can insert Rust expressions as values in the DOM
